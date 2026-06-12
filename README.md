@@ -1,23 +1,20 @@
-Markdown
-# Modular Quantitative Data Pipeline with SQLite Persistency
-
+Modular Quantitative Data Pipeline with SQLite Persistency
 A robust, production-ready micro-pipeline designed to ingest asset price streams, persist financial data using a relational database, and execute statistical anomaly detection to emit execution signals. Built from scratch using Python and SQL.
 
-## 🏗️ System Architecture & Data Flow
+🏗️ System Architecture & Data Flow
+The project applies the Separation of Concerns (SoC) principle, isolating data infrastructure from mathematical analysis through a master orchestrator:
 
-The project applies the **Separation of Concerns (SoC)** principle, isolating data infrastructure from mathematical analysis through a master orchestrator:
-
-```text
-[Data Stream] 
-      │
-      ▼ (Parameterized INSERT)
-[Data Persistence Module] ──► Writes to SQLite (.db) 
-      │
-      ▼ (Extracts 2D Matrix & flattens to 1D Vector via List Comprehension)
+[Data Stream]
+│
+▼ (Parameterized INSERT)
+[Data Persistence Module] ──► Writes to SQLite (.db)
+│
+▼ (Extracts 2D Matrix & flattens to 1D Vector via List Comprehension)
 [Master Orchestrator]
-      │
-      ▼ (Feeds clean vector)
+│
+▼ (Feeds clean vector)
 [Quantitative Engine] ──► Calculates Median & MAD ──► Filters Outliers ──► Emits [BUY/SELL/HOLD]
+
 ⚡ Key Engineering Features
 Loose Coupling Architecture: Financial logic is completely agnostic of the storage layer. Database engines can be swapped without affecting the quantitative models.
 
@@ -29,17 +26,14 @@ Dynamic Enrouting: Portability secured across multiple OS environments using Pyt
 
 🚀 How To Run
 Clone this repository:
+git clone https://github.com/angeldeangelis/quant-pipeline-sqlite.git
 
-Bash
-git clone [https://github.com/YOUR_USERNAME/quant-pipeline-sqlite.git](https://github.com/angeldeangelis/quant-pipeline-sqlite.git)
 Navigate to the project root:
-
-Bash
 cd quant-pipeline-sqlite
-Run the master orchestrator to initialize the database and trigger the execution simulation:
 
-Bash
+Run the master orchestrator to initialize the database and trigger the execution simulation:
 python orchestrator_pipeline.py
+
 🛠️ Tech Stack
 Language: Python 3.x
 
