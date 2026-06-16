@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 # Importamos la función de tu motor de ingesta real desde el otro archivo
 from ingestion_engine_v1 import fetch_market_data
+from database_manager import save_data_defensively
 
 # =====================================================================
 # 1. INGESTA DE DATOS REALES DESDE BINANCE
@@ -47,5 +48,8 @@ else:
 # 4. AUDITORÍA DE RESULTADOS EN PRODUCCIÓN
 # =====================================================================
 print("\n=== LIVE MARKET PIPELINE TELEMETRY (LAST 15 ROWS) ===")
-# Mostramos las últimas 15 filas para auditar los datos más recientes del mercado real
+# Primero: Imprimimos en la terminal la vista previa del análisis
 print(df[['timestamp', 'close_price', 'log_return', 'volatility_zscore']].tail(15))
+
+# Segundo: Invocamos nuestra función externa pasando el DataFrame como argumento
+save_data_defensively(df)
